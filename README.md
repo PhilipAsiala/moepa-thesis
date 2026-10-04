@@ -24,6 +24,6 @@ The Chapter 2 draft is [docs/thesis-chapter-2-marr-moepa.md](docs/thesis-chapter
 
 ```
 draft/thesis.md                         working draft
-docs/thesis-chapter-2-marr-moepa.md     Chapter 2 foundation (Marr × MOEPA)
+docs/thesis-chapter-2-marr-moepa.md     Chapter 2 draft (defers to draft/thesis.md)
 AGENTS.md                               how agents should treat this repo
 ```

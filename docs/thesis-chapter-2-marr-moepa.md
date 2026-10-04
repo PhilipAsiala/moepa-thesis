@@ -1,140 +1,63 @@
-# Chapter 2 — Theoretical Foundations: The Marr × MOEPA Matrix
+# Chapter 2. Theoretical Foundations
 
-Working chapter for the prospectus. The argument, the eight-chapter outline, and the commitment function remain in [draft/thesis.md](../draft/thesis.md). This file develops outline §§2.1 and 2.4 together with the dual-domain partition that Chapter 3 will formalize. It cites the MOEPA Cognitive Architecture specification; it does not replace that specification.
+Working chapter for the prospectus. The argument, the eight-chapter outline, and the commitment function remain in [draft/thesis.md](../draft/thesis.md). This file develops outline §§2.1–2.4. It does not replace the prospectus, and it does not cross Marr’s levels with the MOEPA domains into one model.
 
-Specification cited: Philip Asiala, *Philosophical AI Architecture — Technical Specification* (MOEPA Cognitive Architecture, v2.4, 2 October 2026), §§1.3–1.4 and the layer definitions in §2, in [philosophical-ai-architecture](https://github.com/PhilipAsiala/philosophical-ai-architecture) `ARCHITECTURE.md`. Marr’s tri-level hypothesis is the analysis already named in the outline at §2.1 (David Marr, *Vision*, 1982). Related-work sections on neuro-symbolic systems and epistemic logic (outline §§2.2–2.3) are not written here.
+Specification cited for layer names only: Philip Asiala, *Philosophical AI Architecture — Technical Specification* (MOEPA Cognitive Architecture, v2.4, 2 October 2026), in [philosophical-ai-architecture](https://github.com/PhilipAsiala/philosophical-ai-architecture) `ARCHITECTURE.md`. Where that specification and this prospectus disagree, this prospectus governs. In particular, this chapter does not use “quantum” or “Newtonian” as domain labels, does not treat a Marr-by-MOEPA grid as a model of cognition, and does not call the handoff a state collapse.
 
-## 2.1 The Category Error in Modern AI
+## 2.1 Marr’s Tri-Level Hypothesis Revisited
 
-The central thesis holds that the reliability, alignment, and hallucination failures of autonomous learning systems arise from a category error: state representation and normative commitment are treated as if they were probability distributions. The error is visible once cognition is described at more than one level of analysis, and once those levels are crossed with the five MOEPA domains.
+David Marr argued that an information-processing system is understood only when three questions are answered separately (*Vision*, 1982).
 
-### Marr’s three levels
+1. **Computational level.** What is the goal of the computation, why is it appropriate, and what is the logic of the strategy by which it can be carried out?
+2. **Algorithmic and representational level.** What representations are used for the input and the output, and what algorithm transforms one into the other?
+3. **Implementational level.** How are that representation and that algorithm realized physically?
 
-Marr’s tri-level hypothesis separates an information-processing system into three questions that must not be collapsed into one another.
+The personal level is not one of Marr’s levels. It was a later way of talking about explicit reasoning. This prospectus does not add it to the triad.
 
-1. **Computational level.** What is the goal of the computation, and what is the logic by which that goal is achieved? This level states the function to be computed: the mapping from inputs, and from the constraints that define success, to an admissible output.
-2. **Algorithmic level.** What representations does the system use, and what rules transform those representations? This level states how the computational function is carried out: the data structures and the procedure.
-3. **Implementational level.** How are the representation and the algorithm realized in a physical substrate? This level states the hardware, the runtime, and the storage medium.
+The claim these levels support is narrow. Noise at the implementational level does not force the computational goal, or the rule used at the algorithmic level, to be a probability calculus. A deterministic procedure can run on noisy hardware. A probabilistic procedure can be approximated by deterministic circuits. Governance is not a fourth Marr level. Legal, operational, and ethical admission rules are a separate decision procedure. They may be analyzed at all three of Marr’s levels, but that analysis does not make them a level.
 
-A complete account of a cognitive faculty names all three. An account that answers only the third, and then reads that answer back onto the first, has changed the subject. Noise in a transistor, a weight, or a sampling step is a fact about realization. It does not decide what the computation is for.
+Revisits to cite when this section is expanded, without page quotations in this draft: McClamrock, “Marr’s three levels: A re-evaluation” (1991), which separates grain of description from contextual function; the 2015 *Topics in Cognitive Science* issue introduced by Peebles, including Love on the algorithmic level as the site of integration and Hardcastle and Stewart on failure modes; Pillow (2024) as the opposing view, that the triad is a poor partition of neuroscience and overweights the computational level. Those sources are not used here as authority for a combined Marr–MOEPA model. MOEPA and Marr answer different questions. Marr asks how a process is explained. MOEPA names the kinds of knowledge and admission the system must keep apart.
 
-### The LLM fallacy
+The error this architecture is aimed at is the reading of an implementational fact back onto the goal. Because a foundation model is a sampler, a high token probability is treated as warrant for a committed fact, entity, or permission. Prompting does not supply that warrant. Layer tags in the prompt were tried and did not enforce constraints, because the model treated the tags as additional tokens. That is an author observation, not a completed experiment.
 
-Foundation-model practice commits that change of subject. Because the implementation — neural networks executed on GPUs — is stochastic and noisy, the computational goals of the system are treated as if they, too, must be probabilistic. Sampling, next-token likelihood, and reinforcement learning from human feedback are then asked to carry functions whose success condition is not a likelihood at all: whether a named entity exists, whether a transition is feasible, and whether a statute permits the act.
+## 2.2 Neuro-Symbolic AI Architectures
 
-The outline names this the dual-nature category error: the implementation level (noisy signal processing) is conflated with the governance level (discrete legal, operational, and ethical rules). Under that conflation, a high token probability is received as warrant for a commitment. The architecture specification states the contrary control rule. A language model may propose. It may not commit. The external result of the guardrail is binary.
+The relevant history is the split between symbolic systems and connectionist systems, not a claim that one side has solved constraint enforcement.
 
-### Where current systems are actually strong
+Symbolic systems can state discrete entities, preconditions, and non-compensatory rules, and they can refuse when a rule fails. They are brittle when the input is incomplete, noisy, or not already in the symbol vocabulary. Connectionist and deep models can integrate that kind of evidence and propose a candidate. They do not, by the form of next-token prediction, guarantee that a named entity is grounded, that a transition is allowed, or that a statutory prohibition is respected. Reinforcement learning from human feedback changes the sampling distribution. It does not install an admission check that confidence cannot override.
 
-Crossing Marr’s three levels with the five MOEPA domains yields fifteen facets. Contemporary large language models are highly developed in two of them: **Epistemology at the algorithmic level** (high-dimensional latent vectors, stochastic token sampling, approximate Bayesian updating) and **Epistemology at the implementational level** (foundation models on GPU clusters, and a vector index such as Qdrant). Those two facets are the right instruments for integrating noisy evidence and proposing candidate actions.
+Neuro-symbolic work tries to keep both. The usual failure mode is to put the symbolic constraint back inside the same procedure that proposes: a tag, a prompt, a fine-tune, or a classifier score. The prospectus takes a narrower route. The model remains an uncommitted advisor. Grounding, preconditions, and the policy-encoded hard gate are separate checks. A hosted or self-hosted foundation model is an example epistemic engine, not part of the architecture. A vendor classifier or guardrail, if used, is an optional pre-filter on the proposal. It is not the axiological check.
 
-The same instruments fail when they are stretched into Ontology or Axiology. Those domains require deterministic rule engines: discrete schemas and graph assertions for what exists, and non-compensatory Boolean policy for what may be done. A sampler has no native representation of either engine. Prompting it to “respect the ontology” or “follow policy” leaves both the representation and the rule inside the same stochastic procedure that the computational goal was supposed to constrain. The remaining thirteen facets are then either vacant or simulated inside the two epistemic cells.
+## 2.3 Epistemic Claim and Ontological Record
 
-## 2.2 Probabilistic and Deterministic as Domain Properties
+Uncertainty attaches to a claim about an entity, not as an existence probability on the entity record. A statement such as \(P(\text{entity } E \text{ exists}) = 0.4\) corrupts the record if it is stored as the entity’s existence. The entity table holds discrete identifiers and the relations asserted in the snapshot. Epistemic fields — confidence, model id, \(p\)-value — stay on the proposal and on the decision record. They do not appear as columns on the entity table.
 
-“Probabilistic” and “deterministic” are not properties of the cognitive stack as a whole. They are algorithmic properties fixed by what each MOEPA domain must compute. The architecture specification marks the same cut with the labels “Quantum” (statistical inference) and “Newtonian” (discrete governance). Those labels name the character of the computation. They are not a claim about physical quantum mechanics.
+The ontological check reads the graph synced from the snapshot under a closed-world convention: a referenced entity or relation is grounded in that graph, or it is not. Open-world identity and temporal validity can remain uncertain, but they remain claims. They are not written back as fuzzy existence on the record. The check does not prove that the snapshot is the right closed world. It proves only that the candidate is grounded in the snapshot it was given.
 
-The mind is probabilistic in handling evidence, and non-probabilistic in its commitments.
+Epistemology is not only a probability. The graded part of a proposal is a confidence on a candidate, with metrological metadata such as calibration error. The proposal may also carry defaults, defeaters, source pointers, and an explicit unknown. Unknown is distinct from a uniform prior. A uniform prior manufactures a distribution where the system has no warrant. A defeater is a reason a claim does not stand, not a lower probability of the same claim. None of these is a permission.
 
-### Probabilistic domain
+## 2.4 Non-Compensatory Constraints
 
-Metrology and Epistemology compute over continuous quantities and incomplete evidence. Their native state is a distribution, an interval, or an explicitly unwarranted claim.
+This section does not prove that axiology is binary. Values include tradeoffs. A tradeoff is not a pass/fail gate, and this architecture does not force it into one.
 
-- **Metrology** quantifies observational noise: telemetry, calibration, confidence, and error bounds such as expected calibration error, $\mathbb{E}[|P - Y|]$. A measurement may be uncertain. That uncertainty belongs to the observation.
-- **Epistemology** integrates noisy evidence, infers latent causes, and proposes candidate actions. Its algorithmic objects are latent vectors, stochastic samples, and approximate belief updates. The specification requires three distinct epistemic states, which a single distribution does not supply: **Belief** (a partial claim with a confidence and a justification), **Defeater** (a reason the claim cannot stand), and **Ignorance** (no warranted claim). Ignorance is an explicit $\bot$, distinct from a uniform prior. A defeater is not a lower probability of the same claim.
+The hard gate is the subset of constraints that are non-compensatory and that have been encoded as policy: a statutory prohibition, a safety interlock. For that subset the check returns pass or fail. A high confidence does not compensate for a failed check. \(\Lambda\) does not take \(\mathcal{P}(\hat{y} \mid x)\) as an input. Constraints that have not been encoded are outside the gate. Encoding is a human decision about the snapshot. The gate does not discover the statute, and it does not certify that the encoding is complete.
 
-This domain may measure, score, calibrate, and propose. It may not commit an entity, authorize an action, or emit a permission.
+Praxeology is the same kind of check at a different question. It asks whether the transition from the current state by the candidate meets the preconditions and lies in the allowable transitions. Graded measurements may be inputs. The result is pass or fail. It is not a physics. The rule set is the exported bundle, not a live query of the ledger.
 
-### Deterministic domain
+## 2.5 What This Chapter Does Not Claim
 
-Ontology, Praxeology, and Axiology compute over discrete facts, admissible transitions, and non-compensatory norms. Their native state is a categorical assertion or a Boolean gate, $C \in \{0, 1\}$.
+The handoff is admission, not collapse. The model emits an uncommitted candidate. Three checks run in order: ontological grounding, praxeological preconditions, axiological non-compensatory constraints. Commit only if all three pass. Otherwise refuse, and record the first failed gate. The formula is the commitment function in the prospectus, §3. It is repeated here so this chapter cannot drift from it.
 
-- **Ontology** defines ground truth: which discrete entities and relations exist. A triple is written or it is not. A statement such as $P(\text{entity } E \text{ exists}) = 0.4$ corrupts the state model, because uncertainty has been written onto the entity rather than onto the epistemic claim.
-- **Praxeology** enforces operational feasibility: valid state transitions, preconditions, and execution bounds. Viability is a discrete precondition, not a confidence band.
-- **Axiology** enforces statutory mandates, safety invariants, and core values. Normative commitment is non-compensatory. A high confidence does not compensate for a violated invariant. At runtime the gate is Boolean. The specification further distinguishes the meaning of a failure inside the audit record: **Forbid** when the act is in the action space and violates a value or a rule, and **Refuse to Act** when the proposal is Ignorance or carries an unresolved defeater. **Commit** is the only verdict that authorizes a write or an external effect. The external result remains binary: committed, or blocked.
-
-This domain may commit categorical state, admit or reject a transition, and issue a final verdict. It does not store uncertainty on an entity, and it does not turn a probability into a permission.
-
-## 2.3 The Fifteen-Facet Matrix
-
-Each cell is one Marr level applied to one MOEPA domain. The native domain state selects the kind of goal, the kind of representation, and the kind of substrate that cell may use. The matrix below follows the dual-domain grouping (probabilistic domains, then deterministic domains). The architecture numbers the layers bottom-up as Metrology, Ontology, Epistemology, Praxeology, Axiology; that numbering is the stack order, not a second matrix.
-
-| MOEPA layer | Native domain state | 1. Computational level (goal and logic) | 2. Algorithmic level (representations and rules) | 3. Implementational level (substrate and hardware) |
-| :--- | :--- | :--- | :--- | :--- |
-| **Metrology** | **Probabilistic** | Quantify confidence, telemetry, calibration, and observational noise. | Continuous probability distributions, confidence intervals, error estimators. | Direct SQL / Trino over Iceberg metadata and telemetry logs. |
-| **Epistemology** | **Probabilistic** | Integrate noisy evidence, infer latent causes, propose candidate actions. | High-dimensional latent vectors, stochastic token sampling, approximate Bayesian updating. | Amazon Bedrock / foundation models on GPU clusters; Qdrant vector index. |
-| **Ontology** | **Deterministic** | Define ground truth: what discrete entities and relations exist. | Discrete schemas, RDF triples, relational graph assertions. | Graph database virtualized over Apache Iceberg. |
-| **Praxeology** | **Deterministic** | Enforce valid state transitions, preconditions, and execution bounds. | Discrete state-machine logic, precondition/postcondition assertion trees. | Open Policy Agent (OPA) evaluating state payloads. |
-| **Axiology** | **Deterministic** | Enforce non-negotiable statutory mandates, safety invariants, and core values. | Deterministic Boolean logic ($C \in \{0, 1\}$); non-compensatory policy-as-code. | In-memory OPA Rego bundles mounted from immutable Iceberg S3 snapshots. |
-
-Read across a row, the three Marr levels stay inside one domain state. Metrology’s implementational cell is an analytical query over telemetry, not a permission. Epistemology’s implementational cell samples a proposal, not a commit. Ontology’s algorithmic cell asserts a triple, not a confidence. Praxeology’s algorithmic cell admits a transition, not a score. Axiology’s algorithmic cell returns a Boolean, not a utility.
-
-Read down a column, the same Marr question receives different answers because the domains do not share a permission type. The computational column contains both “propose a candidate” and “enforce an invariant.” Those are different functions. Implementing both of them as next-token prediction is the category error of §2.1, localized to two cells and then generalized to fifteen.
-
-On the deterministic side the execution engines are mounts over one ledger, not a second memory. Apache Iceberg on object storage is the versioned, append-only record. Ontology is a graph projection of those tables. Praxeology and Axiology are separate Rego packages in one OPA bundle synchronized from the same tables. Every decision links to a snapshot identifier. That substrate claim is specified in the architecture and scheduled for Chapter 4; it is assumed here so that the implementational column denotes an owned ledger rather than a vendor’s private state.
-
-## 2.4 The State Collapse Mechanism
-
-State collapse is the handoff that carries a continuous epistemic proposal into a discrete system commitment. It is a change of domain, not a further sample. The outline’s commitment function is the formal statement; the four steps below are the operational reading of that function. Numeric confidence is retained on the audit record. It is not an input to Ontology, Praxeology, or Axiology.
-
-### The epistemic proposal
-
-Let $\mathcal{E}$ be the epistemic state generated over an input $x \in \mathcal{X}$:
-
-$$
-\mathcal{E}(x) = \langle \hat{y},\ \mathcal{P}(\hat{y} \mid x),\ \mathcal{M},\ \tau \rangle
-$$
-
-$\hat{y}$ is the proposed candidate. $\mathcal{P}(\hat{y} \mid x)$ is the graded confidence. $\mathcal{M}$ is the metrological metadata, including calibration error and token log-probabilities. $\tau$ is the provenance trace, including retrieval context and snapshot identifiers.
-
-### Step 1 — The language model as uncommitted advisor
-
-The epistemic layer emits $\mathcal{E}(x)$ and stops. The candidate contains the proposed action, the confidence, and the evidence trace. It is not a system action. Belief, Defeater, and Ignorance remain distinct: Ignorance is not rewritten as a low probability, and a defeater is not smoothed into the same distribution. A provider adapter’s work ends when it has built this uncommitted candidate.
-
-### Step 2 — The schema firewall
-
-A rigid schema keeps probabilistic fields off the ontological record. Confidence, model identifier, and $p$-value may appear in the epistemic envelope and in the audit metadata. They may not appear as a column, a predicate, or an existence condition on an entity table. The firewall is what makes $P(\text{entity } E \text{ exists}) = 0.4$ unrepresentable in the state model. Uncertainty stays on the claim.
-
-### Step 3 — Deterministic arbitration
-
-Three operators then evaluate the discrete candidate. Each returns a value in $\{0, 1\}$, and none of them reads $\mathcal{P}(\hat{y} \mid x)$.
-
-**Ontological validator.**
-
-$$
-\Omega(\hat{y}, \mathcal{G}_{\text{Iceberg}}) \in \{0, 1\}
-$$
-
-$\Omega$ asserts that every entity, relationship, and identity referenced in $\hat{y}$ is a grounded node in the knowledge graph $\mathcal{G}$. A missing entity is a hallucination at this gate.
-
-**Praxeological validator.**
-
-$$
-\Pi(\hat{y}, \mathcal{S}_{\text{current}}, \mathcal{R}_{\text{physics}}) \in \{0, 1\}
-$$
-
-$\Pi$ asserts that the transition from the current state $\mathcal{S}_{\text{current}}$ by the action $\hat{y}$ satisfies the operational preconditions and the transition rules $\mathcal{R}_{\text{physics}}$.
-
-**Axiological arbiter.**
-
-$$
-\Lambda(\hat{y}, \mathcal{C}_{\text{statute}}, \mathcal{K}_{\text{policy}}) \in \{0, 1\}
-$$
-
-$\Lambda$ asserts that $\hat{y}$ satisfies the invariants, ethical constraints, and statutory restrictions encoded in the active policy snapshot $\mathcal{K}_{\text{policy}}$. The assertion is independent of $\mathcal{P}(\hat{y} \mid x)$. In the architecture’s audit vocabulary, a zero at this gate is recorded either as Forbid or as Refuse to Act. Both are blocks.
-
-### Step 4 — Collapse
-
-The commitment $\mathcal{A}_{\text{commit}}$ is non-probabilistic:
-
-$$
-\mathcal{A}_{\text{commit}} =
+\[
+\mathcal{A}_{\mathrm{commit}} =
 \begin{cases}
-\text{Commit}(\hat{y}), & \text{if } \Omega(\hat{y}) \land \Pi(\hat{y}) \land \Lambda(\hat{y}) = 1 \\
-\text{Refuse}(\text{reason}), & \text{if } \Omega(\hat{y}) \land \Pi(\hat{y}) \land \Lambda(\hat{y}) = 0
+\mathrm{Commit}(\hat{y}) & \text{if } \Omega = 1 \land \Pi = 1 \land \Lambda = 1 \\
+\mathrm{Refuse}(\mathrm{reason}) & \text{otherwise}
 \end{cases}
-$$
+\]
 
-If every deterministic gate returns $1$, the continuous proposal collapses into one discrete system commitment: the write, and the Iceberg snapshot metadata that records it. If any gate returns $0$, the proposal is blocked. In particular, $\mathcal{P}(\hat{y} \mid x) \to 1$ does not license execution when $\Lambda(\hat{y}) = 0$. A high-confidence hallucination that fails Ontology, and a high-confidence violation that fails Axiology, are both neutralized at the gate rather than averaged into the proposal.
+\(\mathrm{reason}\) is the first failed gate, in order \(\Omega\), then \(\Pi\), then \(\Lambda\). A later gate is not consulted after an earlier failure. \(\Omega\), \(\Pi\), and \(\Lambda\) are deterministic given the snapshot they read. They are not a proof that the snapshot is correct or complete, and they are not a proof of alignment.
 
-Collapse is therefore the point at which fifteen facets become one control path. The two epistemic facets in which language models excel remain intact: they still integrate evidence and still propose. The ontological and axiological facets remain deterministic rule engines. Alignment, on this account, is the engineering of that handoff.
+Iceberg is the ledger. The vector index, the graph, and the policy engine are projections or syncs from a snapshot. The policy engine evaluates an exported bundle. It does not query the ledger at decision time. A decision stores the snapshot id, the bundle version, and the gate results. Signing is future work. No cloud product is a theoretical requirement.
+
+Chapter 3 states the domains in full: Metrology and the graded part of Epistemology on the proposal side; ontology, praxeology, and the policy-encoded hard gate on the admission side. This chapter only fixes the distinctions those sections are not allowed to blur.
