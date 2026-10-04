@@ -16,11 +16,14 @@ This repository holds the thesis argument. It does not replace the architecture 
 
 Local git repository on `main`. No remote yet.
 
-The working draft is [draft/thesis.md](draft/thesis.md): thesis statement, eight-chapter outline, the Chapter 3 commitment function, and the three-phase development plan.
+The working draft is [draft/thesis.md](draft/thesis.md): a gating design (epistemic proposal, then three admission checks), the eight-chapter outline, the commitment function, and the three-phase plan. Benchmarks in that file are proposed, not reported.
+
+The Marr × MOEPA chapter is [docs/thesis-chapter-2-marr-moepa.md](docs/thesis-chapter-2-marr-moepa.md). It develops outline §§2.1 and 2.4. `draft/thesis.md` remains the source of the argument.
 
 ## Layout
 
 ```
-draft/thesis.md   working draft
-AGENTS.md         how agents should treat this repo
+draft/thesis.md                         working draft
+docs/thesis-chapter-2-marr-moepa.md     Chapter 2 foundation (Marr × MOEPA)
+AGENTS.md                               how agents should treat this repo
 ```
