@@ -22,3 +22,4 @@ This folder alone does not inherit parent `.cursor/`.
 1. [draft/thesis.md](draft/thesis.md) is the source of truth for the argument.
 2. Keep the architecture repo and this repo distinct.
 3. No secrets in the tree.
+4. Sovereignty contrasts name architectural patterns (a lakehouse export of rows, a vendor runtime). Do not name Databricks or Palantir.

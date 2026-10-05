@@ -16,7 +16,7 @@ This repository holds the thesis argument. It does not replace the architecture 
 
 Local git repository on `main`. No remote yet.
 
-The working draft is [draft/thesis.md](draft/thesis.md): a gating design (epistemic proposal, then three admission checks), the eight-chapter outline, the commitment function, and the three-phase plan. Benchmarks in that file are proposed, not reported.
+The working draft is [draft/thesis.md](draft/thesis.md): the ledger stores the business logic and the runtime implements it; an epistemic proposal is then admitted only by three checks. The file also holds the eight-chapter outline, the commitment function, and the three-phase plan. Benchmarks in that file are proposed, not reported.
 
 The Chapter 2 draft is [docs/thesis-chapter-2-marr-moepa.md](docs/thesis-chapter-2-marr-moepa.md). It develops outline §§2.1–2.4 and defers to `draft/thesis.md` where the two differ. `draft/thesis.md` remains the source of the argument.
 
