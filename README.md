@@ -14,7 +14,7 @@ This repository holds the thesis argument. It does not replace the architecture 
 
 ## Status
 
-Local git repository on `main`. No remote yet.
+This repository is the public remote. `main` holds the working draft.
 
 The working draft is [draft/thesis.md](draft/thesis.md): the ledger stores the business logic and the runtime implements it; an epistemic proposal is then admitted only by three checks. The file also holds the eight-chapter outline, the commitment function, and the three-phase plan. Benchmarks in that file are proposed, not reported.
 
