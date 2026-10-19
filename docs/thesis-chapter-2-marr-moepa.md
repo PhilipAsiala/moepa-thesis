@@ -2,7 +2,7 @@
 
 Working chapter for the prospectus. The argument, the eight-chapter outline, and the commitment function remain in [draft/thesis.md](../draft/thesis.md). This file develops outline §§2.1–2.4. It does not replace the prospectus, and it does not cross Marr’s levels with the MOEPA domains into one model.
 
-Specification cited for layer names only: Philip Asiala, *Philosophical AI Architecture — Technical Specification* (MOEPA Cognitive Architecture, v2.4, 2 October 2026), in [philosophical-ai-architecture](https://github.com/PhilipAsiala/philosophical-ai-architecture) `ARCHITECTURE.md`. Where that specification and this prospectus disagree, this prospectus governs. In particular, this chapter does not use “quantum” or “Newtonian” as domain labels, does not treat a Marr-by-MOEPA grid as a model of cognition, and does not call the handoff a state collapse.
+Specification cited for layer names and the record shape: Philip Asiala, *The MOEPA Cognitive Architecture — Technical Specification* (v3.1, 18 October 2026), in [moepa-cognitive-architecture](https://github.com/PhilipAsiala/moepa-cognitive-architecture) `catalog/ARCHITECTURE.md`. Where that specification and this prospectus disagree, this prospectus governs. Earlier versions of the specification used “quantum” and “Newtonian” as domain labels and described the handoff as a collapse; v3.1 does not, and this chapter does not either. This chapter does not treat a Marr-by-MOEPA grid as a model of cognition.
 
 ## 2.1 Marr’s Tri-Level Hypothesis Revisited
 
@@ -68,6 +68,6 @@ The handoff is admission, not collapse. The model emits an uncommitted candidate
 
 \(\mathrm{reason}\) is the first failed gate, in order \(\Omega\), then \(\Pi\), then \(\Lambda\). A later gate is not consulted after an earlier failure. \(\Omega\), \(\Pi\), and \(\Lambda\) are deterministic given the snapshot they read. They are not a proof that the snapshot is correct or complete, and they are not a proof of alignment.
 
-Iceberg is the ledger. The vector index, the graph, and the policy engine are projections or syncs from a snapshot. The policy engine evaluates an exported bundle. It does not query the ledger at decision time. A decision stores the snapshot id, the bundle version, and the gate results. Signing is future work. No cloud product is a theoretical requirement.
+Iceberg is the ledger and the only system of record. The unit of storage is the MOEPA record (specification §5.0): the triple plus four layer envelopes, which this prospectus reads as an N-Quad whose fourth component is the context of instantiation (§2.3). The vector index, the graph, and the policy engine are rebuildable projections or syncs from a snapshot. The policy engine evaluates an exported bundle. It does not query the ledger at decision time. A decision stores the governed record identifiers, the hash of the bundle in force, and the gate results; the snapshot id is specified and not yet implemented. Signing is future work. No cloud product is a theoretical requirement.
 
 Chapter 3 states the domains in full: Metrology and the graded part of Epistemology on the proposal side; ontology, praxeology, and the policy-encoded hard gate on the admission side. This chapter only fixes the distinctions those sections are not allowed to blur.
