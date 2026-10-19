@@ -1,6 +1,6 @@
 # A Dual-Domain Cognitive Architecture for Enterprise AI Governance: Decoupling Probabilistic Epistemic Inference from Deterministic Axiological Arbitration
 
-Working draft. Claim correction of the prospectus received 2026-10-03. Organizational-design hook added 2026-10-04: the ledger stores the business logic; the runtime implements it.
+Working draft. Claim correction of the prospectus received 2026-10-03. Organizational-design hook added 2026-10-04: the ledger stores the business logic; the runtime implements it. Architecture references updated 2026-10-19: the specification cited is *The MOEPA Cognitive Architecture — Technical Specification* v3.1 ([moepa-cognitive-architecture](https://github.com/PhilipAsiala/moepa-cognitive-architecture), `catalog/ARCHITECTURE.md`); the reference implementation is the [moepa](https://github.com/PhilipAsiala/moepa) stack, which replaces the earlier `philosophical-ai-lab`. The record serialization is JSON-LD against an owned context, normatively shaped by [moepa-profile](https://github.com/PhilipAsiala/moepa-profile) (formerly `spop-profile`); the earlier N-Quad framing is withdrawn.
 
 ## Abstract
 
@@ -8,7 +8,7 @@ Enterprise AI fails first as organizational design. Eligibility rules, safety in
 
 This prospectus proposes MOEPA (Metrology, Ontology, Epistemology, Praxeology, Axiology) as the architecture that reverses that anti-pattern. The ledger stores the business logic. The technology implements it. A foundation model remains an uncommitted advisor: its output is an epistemic proposal, a tuple of candidate, graded confidence, metrological metadata, evidence pointers, defeaters, and an explicit unknown. Commitment is a separate decision procedure. The candidate is admitted only when three deterministic checks pass against one snapshot: ontological grounding in discrete identifiers, praxeological preconditions and allowable transitions, and axiological non-compensatory constraints encoded as policy. Confidence is not an input to the axiological check, and it never overrides a deny. Inscribing a probability on an entity record is a category mistake. Uncertainty stays attached to the claim.
 
-A decision is auditable when it records the policy snapshot identifier and the gate results. Data sovereignty, on this account, is retention of that cognitive history — lineage, refinement rules, and epistemic claims — in an open serialization (N-Quads in Apache Iceberg). A bare export of extensional rows does not preserve it. The gating design does not prove alignment, and it does not prove that the snapshot is correct or complete.
+A decision is auditable when it records the policy snapshot identifier and the gate results. Data sovereignty, on this account, is retention of that cognitive history — lineage, refinement rules, and epistemic claims — in an open serialization: the MOEPA record, one triple with its epistemic, metrological, axiological, and praxeological envelopes as JSON-LD against an organization-owned context, stored in Apache Iceberg. A bare export of extensional rows does not preserve it. The gating design does not prove alignment, and it does not prove that the snapshot is correct or complete.
 
 ## 1. Central Thesis Statement
 
@@ -33,7 +33,7 @@ The model may integrate evidence with graded confidence. Commitment to an entity
 - Formalization of the MOEPA (Metrology, Ontology, Epistemology, Praxeology, Axiology) cognitive stack as a gating design in which the ledger holds the rules and the technology implements them.
 - The operational separation of an epistemic claim from an ontological entity record, so that uncertainty is never stored as a property of instantiation.
 - Praxeological and axiological constraints as a versioned policy bundle, evaluated outside the model, so that leadership amends strategy by snapshot rather than by patching inference code.
-- An Iceberg ledger of N-Quads and refinement rules, with a vector index, a graph database, and a policy engine fed by snapshot sync or export. Sovereignty is retention of that cognitive history, not possession of a row export.
+- An Iceberg ledger of MOEPA records (JSON-LD against an owned context) and refinement rules, with a vector index, a graph database, and a policy engine fed by snapshot sync or export. Sovereignty is retention of that cognitive history, not possession of a row export.
 
 ### Chapter 2: Theoretical Foundations and Related Work
 
@@ -65,29 +65,32 @@ Ontology answers what is instantiated. Praxeology answers which transitions the 
 
 ### Chapter 4: Unified Data Substrate and Specialized Compute Projections
 
-4.1 **The Ledger.** Apache Iceberg is the versioned, append-only ledger of record. It stores ontological assertions as N-Quads and stores the refinement rules that praxeology and axiology evaluate. Snapshot history supports replay of both the admitted world and the policy under which it was admitted. Object storage is the medium. No particular cloud vendor is a theoretical requirement. A Parquet export of rows without quads and without the bundle is not the ledger.
+4.1 **The Ledger.** Apache Iceberg, under an open table catalog, is the versioned, append-only ledger of record and the only system of record (specification §5.0.1). The unit of storage is the MOEPA record (specification §5.0): the ontological triple plus one envelope for each of the other four layers — Epistemology (generating agent, generation time, SHA-256 fingerprint), Metrology (measurement confidence, validity window), Axiology (classification marking), Praxeology (allowed and denied action classes) — on the same row, serialized as JSON-LD against an organization-owned context ([moepa-profile](https://github.com/PhilipAsiala/moepa-profile)). The triple is the assertion; the envelopes are the context of its instantiation, and they travel with it in the same row. Because the record is JSON-LD it is also an RDF dataset, so a graph projection can hold the triple under the record identifier as a named graph without a second representation; the ledger row, not the graph, is the record. A record is never updated in place; a change is a new row with the same identifier and a new fingerprint, and older rows remain readable. The ledger also stores the refinement rules that praxeology and axiology evaluate. Snapshot history supports replay of both the admitted world and the policy under which it was admitted. Object storage is the medium. No particular cloud vendor is a theoretical requirement. A Parquet export of rows without the envelopes and without the bundle is not the ledger.
 
-4.2 **Projections and Snapshot Syncs.** Qdrant, the graph database, and OPA are projections or syncs from snapshots. They are not live mounts, unless a virtualization path is later implemented and named.
+4.2 **Projections and Snapshot Syncs.** The vector index, the graph database, and the policy engine's loaded bundle are projections or syncs from snapshots. They are not live mounts, unless a virtualization path is later implemented and named. Each projection must be emptiable and rebuildable from the ledger; the specification makes that rebuild an acceptance test, and the reference implementation runs it as one (`AG6` check).
 
 - **Metrology:** Analytical SQL over Iceberg tables for drift and calibration monitoring.
-- **Epistemic projection:** A vector index (Qdrant) synced from a snapshot, holding latent embeddings.
-- **Ontological projection:** A graph database loaded from a snapshot, used for entity-relationship checks.
+- **Epistemic projection:** A vector index (Qdrant) loaded from a lakehouse table of embeddings keyed to the record identifier and fingerprint.
+- **Ontological projection:** A graph database (Apache Jena Fuseki in the reference implementation) loaded from a snapshot, used for entity-relationship checks.
 - **Praxeological and axiological projection:** Rules exported from a snapshot into an OPA bundle. OPA evaluates that exported bundle. It does not query Iceberg at decision time.
 
-4.3 **Snapshot-linked Replay.** A decision stores the Iceberg snapshot id and the bundle version, together with the gate results. Signing is future work.
+4.3 **Snapshot-linked Replay.** A decision stores the record identifiers it governed, the hash of the policy bundle in force, and the gate outcome; that is the `moepa.decisions` ledger (`DS5`) as implemented. The Iceberg snapshot id is specified for the same record and is not yet written by the reference implementation. Signing is future work.
 
-### Chapter 5: Reference Implementation (`moepa_guard`) and System Orchestration
+### Chapter 5: Reference Implementation (the `moepa` Stack) and System Orchestration
 
-5.1 **Schema Firewall.** Epistemic fields (confidence, model id, $p$-value) do not appear as columns on the entity table. They stay on the proposal and on the decision record.
+The reference implementation is the [moepa](https://github.com/PhilipAsiala/moepa) stack, built to the enterprise capability catalog of the specification. It replaces the earlier `philosophical-ai-lab` scaffold. Each catalog capability (`DS1`–`DS8`, `AG1`–`AG8`) is one deployable unit with a declared contract and its own check, so the engine behind a projection, the gateway, or the model proxy can be replaced without touching the ledger or the gates (specification §5.2, "Capabilities deploy as units"). The checks prove the contracts hold; they are not the benchmarks of Chapter 6.
+
+5.1 **Schema Firewall.** Epistemic fields (confidence, model id, $p$-value) do not appear as columns on the entity table. They stay on the proposal and on the decision record. In the record of §4.1 they stay in the Epistemology and Metrology envelopes and are never written into the ontological triple.
 
 5.2 **The Sequential Enforcement Pipeline.**
 
-- **Candidate generation:** A foundation model, hosted or self-hosted, produces the epistemic proposal. A hosted service is an example epistemic engine, not part of the architecture.
+- **Enforcement point:** One policy-enforcing gateway (`AG7`; Envoy with external authorization in the reference implementation) fronts every model and tool endpoint. It holds the request while an authorizer loads the governing record, asks the policy engine, and writes the decision to the ledger; only an allow is routed upstream. A denied request is an HTTP refusal the model process never sees. Any model or tool reachable by a path that skips the gateway is a side door, and the specification scores it as an automatic NO-GO unless covered by a dated, recorded exception.
+- **Candidate generation:** A foundation model, hosted or self-hosted, produces the epistemic proposal. It is reached only through the gateway and a model translation proxy (`AG8`) that makes the model a replaceable host. A hosted service is an example epistemic engine, not part of the architecture.
 - **Ontological verification:** Referenced entities and relations are checked in the graph synced from the snapshot.
 - **Praxeological gating:** Preconditions and allowable transitions are evaluated with OPA Rego against the exported bundle. The check returns pass or fail.
-- **Axiological gate:** Non-compensatory constraints in the exported bundle are evaluated with OPA Rego. The check does not receive the proposal’s confidence. Rego is the encoding of the business rule for that snapshot. The surrounding service is the interpreter. A confidence cutoff, if leadership has adopted one, appears as a clause in the bundle, versioned with the snapshot identifier, and is still not an input that can override a separate deny.
+- **Axiological gate:** Non-compensatory constraints in the exported bundle are evaluated with OPA Rego. The caller's clearance is a stored fact in the identity registry (`DS8`), not a header the caller asserts, and the record's classification marking is the Axiology envelope the rule reads. The check does not receive the proposal’s confidence. Rego is the encoding of the business rule for that snapshot. The surrounding service is the interpreter. A confidence cutoff, if leadership has adopted one, appears as a clause in the bundle, versioned with the snapshot identifier, and is still not an input that can override a separate deny.
 
-5.3 **Handling Rejection and Fallbacks.** Safe refusal states, feedback for re-prompting or re-sampling, and human-in-the-loop escalation. Refusal names the first failed gate.
+5.3 **Handling Rejection and Fallbacks.** Safe refusal states, feedback for re-prompting or re-sampling, and human-in-the-loop escalation. Refusal names the first failed gate and is written to the decision ledger with the policy hash, as an allow is.
 
 ### Chapter 6: Empirical Evaluation and Validation
 
@@ -107,7 +110,7 @@ The benchmarks in this chapter are proposed. None has been run for this prospect
 
 ### Chapter 7: Systems Governance, Sovereign Infrastructure, and Deployment Patterns
 
-7.1 **Sovereignty of Cognitive History, and Owned vs. Rented Gates.** Possession of raw tables is not data sovereignty. Sovereignty is the ability to recover, on infrastructure the organization controls, the epistemic claims, the lineage of each admitted assertion, and the praxeological and axiological rules that governed commitment. N-Quads in an open Iceberg ledger provide that recovery. A bare row export, and a monolithic platform whose ontology and action rules are recoverable only inside a vendor runtime, both fail that test: the first abandons the warrant, and the second keeps the steering wheel inside the platform. Delegating the policy gate to a commercial API provider is the same failure at deployment time. Hosting the epistemic engine is a deployment choice. The admission checks and the rules they read remain outside that engine.
+7.1 **Sovereignty of Cognitive History, and Owned vs. Rented Gates.** Possession of raw tables is not data sovereignty. Sovereignty is the ability to recover, on infrastructure the organization controls, the epistemic claims, the lineage of each admitted assertion, and the praxeological and axiological rules that governed commitment. MOEPA records in an open Iceberg ledger provide that recovery: the triple and its four envelopes in one row, in an open serialization the organization's own context defines. A bare row export, and a monolithic platform whose ontology and action rules are recoverable only inside a vendor runtime, both fail that test: the first abandons the warrant, and the second keeps the steering wheel inside the platform. Delegating the policy gate to a commercial API provider is the same failure at deployment time. Hosting the epistemic engine is a deployment choice. The admission checks and the rules they read remain outside that engine. The reference implementation makes the owned-versus-rented line a packaging rule: the ledger, the policy baseline, the gate, and the gateway are owned units; the graph store, the vector index, and the model host are units that can be swapped, and a swap is proven by the unit's own check and the projection rebuild passing with no other unit restarted.
 
 7.2 **Air-Gapped and High-Assurance Implementations.** Deployment patterns for isolated infrastructure, including self-hosted models, a local vector index, and a self-hosted policy engine evaluating an exported bundle. A particular cloud partition is an example, not a theoretical requirement.
 
@@ -194,12 +197,13 @@ $\Omega$, $\Pi$, and $\Lambda$ are deterministic given the snapshot they read. T
 
 ### Phase 2: Empirical Validation and Test Data
 
-- Extract test suites from `philosophical-ai-architecture` `reference/tests/`
-- Measure latency of foundation-model sampling (hosted or self-hosted) against evaluation of an exported OPA bundle. Report the measurement; do not assume a figure in advance.
-- Run the proposed failure-injection tests (high-confidence boundary violations)
+- Derive test cases from the `moepa` stack: the per-capability checks under `deploy/capabilities/*/check.sh` (gateway refusal never reaching the model proxy, policy hash matching the loaded bundle, projection rebuild from the ledger) and the unit tests under `src/assembly/tests/`. These are contract checks; Chapter 6 benchmarks are built from them, not reported from them.
+- Measure latency of foundation-model sampling (hosted or self-hosted) against evaluation of an exported OPA bundle, on the `moepa` stack. Report the measurement; do not assume a figure in advance.
+- Run the proposed failure-injection tests (high-confidence boundary violations) through the gateway, so a refusal is recorded in `moepa.decisions`.
 
 ### Phase 3: Substrate Architecture and Systems Writing
 
-- Document the Iceberg snapshot schema and the bundle-export pipeline
-- Detail graph and Qdrant sync from snapshots
+- Document the MOEPA record schema (`moepa.quintuples`), the decision ledger (`moepa.decisions`), and the bundle-export pipeline as implemented
+- Detail graph and Qdrant projection from the ledger, and the rebuild check
+- Add the Iceberg snapshot id to the decision record so §4.3 replay is implemented, not only specified
 - After the proposed benchmarks have been run, assemble Chapter 6 from those results
