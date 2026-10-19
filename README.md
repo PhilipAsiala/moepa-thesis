@@ -10,19 +10,21 @@ This repository holds the thesis argument. It does not replace the architecture 
 | Repo | Role |
 |---|---|
 | [moepa-cognitive-architecture](https://github.com/PhilipAsiala/moepa-cognitive-architecture) | Reference architecture: the technical specification (`catalog/ARCHITECTURE.md`) and the enterprise capability catalog (`DS1`–`DS8`, `AG1`–`AG8`) |
+| [moepa-profile](https://github.com/PhilipAsiala/moepa-profile) | Normative shape of the MOEPA record: JSON-LD 1.1 context, vocabulary, SHACL shapes (formerly `spop-profile`) |
 | [moepa](https://github.com/PhilipAsiala/moepa) | Runnable stack built to that catalog, one deployable unit per capability, with a check per unit |
 | **This repo** | Thesis draft |
 
-The three repositories are cloned side by side:
+The four repositories are cloned side by side:
 
 ```
 ~/source/thesis/
   moepa-cognitive-architecture/   specification and catalog
+  moepa-profile/                  the record: context, vocabulary, shapes
   moepa/                          running stack
   moepa-thesis/                   this repo
 ```
 
-`moepa` replaces the earlier `philosophical-ai-lab`. The lab was a scaffold of intended labs, one per layer, that were never filled in. The stack is the implementation: a lakehouse system of record, rebuildable graph and vector projections, a policy engine, and one policy-enforcing gateway, running on the host **nitro** and verified by per-capability checks. `moepa-cognitive-architecture` is the renamed `philosophical-ai-architecture`; the old name redirects.
+`moepa` replaces the earlier `philosophical-ai-lab`. The lab was a scaffold of intended labs, one per layer, that were never filled in. The stack is the implementation: a lakehouse system of record, rebuildable graph and vector projections, a policy engine, and one policy-enforcing gateway, running on the host **nitro** and verified by per-capability checks. `moepa-cognitive-architecture` is the renamed `philosophical-ai-architecture`; the old name redirects. `moepa-profile` is the renamed `spop-profile`: the record moved from N-Quads to JSON-LD, and the profile moved with it.
 
 ## Status
 

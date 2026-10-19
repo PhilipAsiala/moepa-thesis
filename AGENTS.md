@@ -1,14 +1,17 @@
 # MOEPA Thesis — agent notes
 
 Thesis draft companion to
-[`moepa-cognitive-architecture`](../moepa-cognitive-architecture/) (specification and catalog)
+[`moepa-cognitive-architecture`](../moepa-cognitive-architecture/) (specification and catalog),
+[`moepa-profile`](../moepa-profile/) (the record: JSON-LD context, vocabulary, shapes),
 and [`moepa`](../moepa/) (the running stack).
-Theory and the catalog stay in the first. What has been built and verified stays in the second.
-The argument of the thesis lives here.
+Theory and the catalog stay in the first, the normative record shape in the second,
+what has been built and verified in the third. The argument of the thesis lives here.
 
-The three repositories sit side by side in `~/source/thesis/`. Open Cursor on that
+The four repositories sit side by side in `~/source/thesis/`. Open Cursor on that
 folder to work across them. `moepa` replaces the retired `philosophical-ai-lab`;
-`moepa-cognitive-architecture` is the renamed `philosophical-ai-architecture`.
+`moepa-cognitive-architecture` is the renamed `philosophical-ai-architecture`;
+`moepa-profile` is the renamed `spop-profile`. The record is JSON-LD, not N-Quads;
+do not reintroduce N-Quad or named-graph framing into the argument.
 
 ## Role
 
