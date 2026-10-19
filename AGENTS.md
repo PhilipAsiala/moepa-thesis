@@ -3,12 +3,12 @@
 Thesis draft companion to
 [`moepa-cognitive-architecture`](../moepa-cognitive-architecture/) (specification and catalog),
 [`moepa-profile`](../moepa-profile/) (the record: JSON-LD context, vocabulary, shapes),
-and [`moepa`](../moepa/) (the running stack).
+and [`moepa-lab`](../moepa-lab/) (the running stack).
 Theory and the catalog stay in the first, the normative record shape in the second,
 what has been built and verified in the third. The argument of the thesis lives here.
 
 The four repositories sit side by side in `~/source/thesis/`. Open Cursor on that
-folder to work across them. `moepa` replaces the retired `philosophical-ai-lab`;
+folder to work across them. `moepa-lab` replaces the retired `philosophical-ai-lab`;
 `moepa-cognitive-architecture` is the renamed `philosophical-ai-architecture`;
 `moepa-profile` is the renamed `spop-profile`. The record is JSON-LD, not N-Quads;
 do not reintroduce N-Quad or named-graph framing into the argument.

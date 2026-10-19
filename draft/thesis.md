@@ -1,6 +1,6 @@
 # A Dual-Domain Cognitive Architecture for Enterprise AI Governance: Decoupling Probabilistic Epistemic Inference from Deterministic Axiological Arbitration
 
-Working draft. Claim correction of the prospectus received 2026-10-03. Organizational-design hook added 2026-10-04: the ledger stores the business logic; the runtime implements it. Architecture references updated 2026-10-19: the specification cited is *The MOEPA Cognitive Architecture — Technical Specification* v3.1 ([moepa-cognitive-architecture](https://github.com/PhilipAsiala/moepa-cognitive-architecture), `catalog/ARCHITECTURE.md`); the reference implementation is the [moepa](https://github.com/PhilipAsiala/moepa) stack, which replaces the earlier `philosophical-ai-lab`. The record serialization is JSON-LD against an owned context, normatively shaped by [moepa-profile](https://github.com/PhilipAsiala/moepa-profile) (formerly `spop-profile`); the earlier N-Quad framing is withdrawn.
+Working draft. Claim correction of the prospectus received 2026-10-03. Organizational-design hook added 2026-10-04: the ledger stores the business logic; the runtime implements it. Architecture references updated 2026-10-19: the specification cited is *The MOEPA Cognitive Architecture — Technical Specification* v3.1 ([moepa-cognitive-architecture](https://github.com/PhilipAsiala/moepa-cognitive-architecture), `catalog/ARCHITECTURE.md`); the reference implementation is the [moepa-lab](https://github.com/PhilipAsiala/moepa-lab) stack, which replaces the earlier `philosophical-ai-lab`. The record serialization is JSON-LD against an owned context, normatively shaped by [moepa-profile](https://github.com/PhilipAsiala/moepa-profile) (formerly `spop-profile`); the earlier N-Quad framing is withdrawn.
 
 ## Abstract
 
@@ -76,9 +76,9 @@ Ontology answers what is instantiated. Praxeology answers which transitions the 
 
 4.3 **Snapshot-linked Replay.** A decision stores the record identifiers it governed, the hash of the policy bundle in force, and the gate outcome; that is the `moepa.decisions` ledger (`DS5`) as implemented. The Iceberg snapshot id is specified for the same record and is not yet written by the reference implementation. Signing is future work.
 
-### Chapter 5: Reference Implementation (the `moepa` Stack) and System Orchestration
+### Chapter 5: Reference Implementation (the `moepa-lab` Stack) and System Orchestration
 
-The reference implementation is the [moepa](https://github.com/PhilipAsiala/moepa) stack, built to the enterprise capability catalog of the specification. It replaces the earlier `philosophical-ai-lab` scaffold. Each catalog capability (`DS1`–`DS8`, `AG1`–`AG8`) is one deployable unit with a declared contract and its own check, so the engine behind a projection, the gateway, or the model proxy can be replaced without touching the ledger or the gates (specification §5.2, "Capabilities deploy as units"). The checks prove the contracts hold; they are not the benchmarks of Chapter 6.
+The reference implementation is the [moepa-lab](https://github.com/PhilipAsiala/moepa-lab) stack, built to the enterprise capability catalog of the specification. It replaces the earlier `philosophical-ai-lab` scaffold. Each catalog capability (`DS1`–`DS8`, `AG1`–`AG8`) is one deployable unit with a declared contract and its own check, so the engine behind a projection, the gateway, or the model proxy can be replaced without touching the ledger or the gates (specification §5.2, "Capabilities deploy as units"). The checks prove the contracts hold; they are not the benchmarks of Chapter 6.
 
 5.1 **Schema Firewall.** Epistemic fields (confidence, model id, $p$-value) do not appear as columns on the entity table. They stay on the proposal and on the decision record. In the record of §4.1 they stay in the Epistemology and Metrology envelopes and are never written into the ontological triple.
 
@@ -197,8 +197,8 @@ $\Omega$, $\Pi$, and $\Lambda$ are deterministic given the snapshot they read. T
 
 ### Phase 2: Empirical Validation and Test Data
 
-- Derive test cases from the `moepa` stack: the per-capability checks under `deploy/capabilities/*/check.sh` (gateway refusal never reaching the model proxy, policy hash matching the loaded bundle, projection rebuild from the ledger) and the unit tests under `src/assembly/tests/`. These are contract checks; Chapter 6 benchmarks are built from them, not reported from them.
-- Measure latency of foundation-model sampling (hosted or self-hosted) against evaluation of an exported OPA bundle, on the `moepa` stack. Report the measurement; do not assume a figure in advance.
+- Derive test cases from the `moepa-lab` stack: the per-capability checks under `deploy/capabilities/*/check.sh` (gateway refusal never reaching the model proxy, policy hash matching the loaded bundle, projection rebuild from the ledger) and the unit tests under `src/assembly/tests/`. These are contract checks; Chapter 6 benchmarks are built from them, not reported from them.
+- Measure latency of foundation-model sampling (hosted or self-hosted) against evaluation of an exported OPA bundle, on the `moepa-lab` stack. Report the measurement; do not assume a figure in advance.
 - Run the proposed failure-injection tests (high-confidence boundary violations) through the gateway, so a refusal is recorded in `moepa.decisions`.
 
 ### Phase 3: Substrate Architecture and Systems Writing
