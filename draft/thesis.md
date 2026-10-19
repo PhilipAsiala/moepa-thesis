@@ -102,7 +102,7 @@ The benchmarks in this chapter are proposed. None has been run for this prospect
 
 - Statutory benefits eligibility determination.
 - Income verification and programmatic audits.
-- Separation of a taxpayer claim from a taxpayer entity record.
+- Separation of a claim about a person from that person's entity record.
 
 6.3 **Proposed Measurement — Latency.** Compare evaluation of an exported OPA bundle with foundation-model sampling. Latency is a measurement to make. This draft reports no latency figure.
 
