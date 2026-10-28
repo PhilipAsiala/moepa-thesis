@@ -32,12 +32,20 @@ This repository is the public remote. `main` holds the working draft.
 
 The working draft is [draft/thesis.md](draft/thesis.md): the ledger stores the business logic and the runtime implements it; an epistemic proposal is then admitted only by three checks. The file also holds the eight-chapter outline, the commitment function, and the three-phase plan. Benchmarks in that file are proposed, not reported. Where the draft describes the substrate, the gateway, or the reference implementation, it describes the specification at v3.1 and the stack as built; nothing the stack's checks prove is reported as a thesis result.
 
-The Chapter 2 draft is [docs/thesis-chapter-2-marr-moepa.md](docs/thesis-chapter-2-marr-moepa.md). It develops outline §§2.1–2.4 and defers to `draft/thesis.md` where the two differ. `draft/thesis.md` remains the source of the argument.
+Chapter drafts developed from that file are in [docs/](docs/). [docs/thesis-front-matter.md](docs/thesis-front-matter.md) holds the abstract and the central thesis statement and links the eight chapters. Each chapter develops its outline section and defers to `draft/thesis.md` where the two differ. `draft/thesis.md` remains the source of the argument. The development plan stays in the draft.
 
 ## Layout
 
 ```
-draft/thesis.md                         working draft
-docs/thesis-chapter-2-marr-moepa.md     Chapter 2 draft (defers to draft/thesis.md)
-AGENTS.md                               how agents should treat this repo
+draft/thesis.md                                         working draft (source of the argument)
+docs/thesis-front-matter.md                             abstract, central thesis, chapter index
+docs/thesis-chapter-1-organizational-design.md          Chapter 1
+docs/thesis-chapter-2-marr-moepa.md                     Chapter 2
+docs/thesis-chapter-3-dual-domain.md                    Chapter 3, including the commitment function
+docs/thesis-chapter-4-substrate.md                      Chapter 4
+docs/thesis-chapter-5-reference-implementation.md       Chapter 5
+docs/thesis-chapter-6-evaluation.md                     Chapter 6 (benchmarks proposed, not run)
+docs/thesis-chapter-7-governance.md                     Chapter 7
+docs/thesis-chapter-8-conclusion.md                     Chapter 8
+AGENTS.md                                               how agents should treat this repo
 ```
