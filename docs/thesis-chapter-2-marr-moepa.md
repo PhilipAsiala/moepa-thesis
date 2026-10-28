@@ -1,6 +1,6 @@
 # Chapter 2. Theoretical Foundations
 
-Working chapter for the prospectus. The argument, the eight-chapter outline, and the commitment function remain in [draft/thesis.md](../draft/thesis.md). The other chapters are indexed from [thesis-front-matter.md](thesis-front-matter.md). This file develops outline §§2.1–2.4. It does not replace the prospectus, and it does not cross Marr’s levels with the MOEPA domains into one model.
+Working chapter for the prospectus. The argument, the eight-chapter outline, and the commitment function remain in [draft/thesis.md](../draft/thesis.md). The other chapters are indexed from the repository [README](../README.md). This file develops outline §§2.1–2.4. It does not replace the prospectus, and it does not cross Marr’s levels with the MOEPA domains into one model.
 
 Specification cited for layer names and the record shape: Philip Asiala, *The MOEPA Cognitive Architecture — Technical Specification* (v3.1, 18 October 2026), in [moepa-cognitive-architecture](https://github.com/PhilipAsiala/moepa-cognitive-architecture) `catalog/ARCHITECTURE.md`. Where that specification and this prospectus disagree, this prospectus governs. Earlier versions of the specification used “quantum” and “Newtonian” as domain labels and described the handoff as a collapse; v3.1 does not, and this chapter does not either. This chapter does not treat a Marr-by-MOEPA grid as a model of cognition.
 

@@ -2,7 +2,7 @@
 
 Working chapter. The argument, the eight-chapter outline, and the commitment function remain in [draft/thesis.md](../draft/thesis.md). This file develops outline §§1.1–1.3. It does not replace the prospectus. Where this chapter and the prospectus differ, the prospectus governs.
 
-The abstract and the central thesis statement are in [thesis-front-matter.md](thesis-front-matter.md). This chapter states the problem those pages name, and the contributions the later chapters have to make good.
+The abstract and the central thesis statement are the repository [README](../README.md). This chapter states the problem that page names, and the contributions the later chapters have to make good.
 
 ## 1.1 The Organizational Design Impasse
 

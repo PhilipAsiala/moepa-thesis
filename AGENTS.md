@@ -22,7 +22,7 @@ do not reintroduce N-Quad or named-graph framing into the argument.
 
 ## Working rules
 
-1. [draft/thesis.md](draft/thesis.md) is the source of truth for the argument. Chapter drafts in [docs/](docs/) develop that file and defer to it where they differ. Do not add a claim to a chapter that the draft does not already make.
+1. [draft/thesis.md](draft/thesis.md) is the source of truth for the argument. The repository [README](README.md) is the front matter drawn from that file: abstract, central thesis, and chapter index. Chapter drafts in [docs/](docs/) develop the draft and defer to it where they differ. Do not add a claim to a chapter that the draft does not already make. Do not keep a second copy of the front matter.
 2. Keep the architecture repo, the stack repo, and this repo distinct. Where the thesis describes the architecture, it describes `catalog/ARCHITECTURE.md` at the version it cites; where the two disagree on the argument, the thesis governs.
 3. No secrets in the tree.
 4. Sovereignty contrasts name architectural patterns (a lakehouse export of rows, a vendor runtime). Do not name Databricks or Palantir.
